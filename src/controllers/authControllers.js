@@ -22,7 +22,7 @@ const register = async (req, res) => {
     const newUser = await User.create({
       email,
       username,
-      password,
+      password: hashPassword,
       role: role || "member",
     });
     return res.status(200).send({ message: "dang ki thanh cong", newUser });
