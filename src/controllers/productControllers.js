@@ -67,10 +67,10 @@ const updateByIdProduct = async (req, res) => {
   try {
     const id = req.params.id;
     const { title, price, description, categoryId } = req.body;
-    if (!categoryId) {
-      categoryId = "6783838c6975badc60e3ae0f";
-    } else if (categoryId && !mongoose.Types.ObjectId.isValid(categoryId)) {
-      return next(new Error("danh muc ko ton tai, them san pham moi that bai"));
+    const category = await Category.findById(categoryId);
+
+    if (!category) {
+      return res.status(404).send({ message: "danh muc ko ton tai" });
     }
 
     const newProduct = await Product.findByIdAndUpdate(

@@ -12,7 +12,7 @@ const register = async (req, res) => {
     const { email, username, password, role } = req.body;
     const emailExists = User.findOne({ email });
 
-    if (emailExists) {
+    if (!emailExists) {
       return res
         .status(404)
         .send({ message: "email da dang ki, vui long dang nhap" });
